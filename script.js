@@ -3,10 +3,12 @@ const gamerestarter = document.querySelector("#Gamerestart");
 const showrandomnumber = document.querySelector("#Shownumber");
 const numberInput = document.querySelector("#InputNumber");
 const getputNumber = document.querySelector("#InputNumber input");
+//const showStrikeResult = document.querySelector(".ShowResults");
+//const showBallResult = document.querySelector(".ShowResults");
 const RandomNumber1 = Math.floor(Math.random()*9 +1);
 const RandomNumber2 = Math.floor(Math.random()*10);
 const RandomNumber3 = Math.floor(Math.random()*10);
-let tryinputNumber = [];
+//let tryinputNumber = [];
 //const newNumber = parseInt(getputNumber.value);
 
 gamestarter.addEventListener("click",makeRandomNumber);
@@ -47,7 +49,8 @@ function compareNumbers(RandomNumber1, RandomNumber2, RandomNumber3, newNumber){
     const INum = newNumber.toString(10);
     let countStrike = 0;
     let countBall = 0;
-    let countChance = 0;
+    let countChance = 10;
+    let flag = 0;
     //console.log(RN1, RN2, RN3, typeof(RN1),typeof(RN2), typeof(RN3));
     //console.log(INum, typeof(INum));
     //console.log(INum.indexOf(RN1));
@@ -58,17 +61,31 @@ function compareNumbers(RandomNumber1, RandomNumber2, RandomNumber3, newNumber){
     for(let i=0;i<INum.length;i++){
         let slicedINum = INum.slice(i,i+1);
         //console.log(slicedINum);
-        
-        if(slicedINum===RN1&&INum.indexOf(slicedINum)===RNresult.indexOf(RN1)){
-            countStrike+=1;
-        }else if(slicedINum==RN2||slicedINum==RN3){
-            countBall+=1;
-        }else{
-            countChance+=1;
+        if(slicedINum===RN1){
+            if(flag!==0){
+                countBall+=1;
+            }else{
+                countStrike+=1;
+            }
+        }else if(slicedINum===RN2){
+            if(flag!==1){
+                countBall+=1;
+            }else{
+                countStrike+=1;
+            }
+        }else if(slicedINum===RN3){
+            if(flag!==2){
+                countBall+=1;
+            }else{
+                countStrike+=1;
+            }
         }
+        flag+=1;
     }
     console.log("countStrike : ", countStrike);
     console.log("countBall : ", countBall);
+    console.log("countChance : ", countChance);
+    console.log("flag : ",flag);
 }
 
 function refreshfunction(){
